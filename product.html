@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+        <title>product form</title>
+    </head>
+    <body>
+        <?php
+        if($_SERVER["REQUEST_METHOD"]=="POST"){
+             $conn=mysqli_connect("localhost","root","","product_db");
+             if(!$conn){
+                die("connection failed".mysqli_connect_error());
+             }
+        $name=$_POST['name'];
+        $category=$_POST['category'];
+        $price=$_POST['price'];
+        $quantity=$_POST['quantity'];
+        $description=$_POST['description'];
+        $manufacturer=$_POST['manufacturer'];
+        $added_on=$_POST['added_on'];
+
+        $sql="insert into products(name,category,price,quantity,description,manufacture,added_on) 
+        values (?,?,?,?,?,?,?)";
+        $stmt=mysqli_prepare($conn,$sql);
+        if($stmt){
+            mysqli_stmt_bind_param($stmt,"ssdisss",$name,$category,$price,$quantity,$description,$manufacturer,$added_on);
+            mysqli_stmt_execute($stmt);
+            echo "successfully inserted successfully";
+
+        }
+        else{
+            echo " error preparing statement";
+        }
+        mysqli_close($conn);
+        }
+ 
+        
+        
+        
+        
+        ?>
+        <h2>insert form</h2>
+        <form method="POST" action="">
+            Name:<input type="text" name="name" required><br>
+            Category:<input type="text" name="category" required><br>
+            Price:<input type="number" name="price" required><br>
+            Quantity:<input type="number" name="quantity" required><br>
+            Description:<input type="text" name="description"><br>
+            Manufacturer:<input type="text" name="manufacturer"><br>
+
+            Date Added : < input type =" date " name =" added_on " required > < br > < br >
+            <input type =" submit " value ="submit">
+        </form>
+        < button > < a href =" product.php"> View All Products </ a > </ button >
+    </body>
+</html>

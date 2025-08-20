@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <title>Student profile form</title>
+    <script>
+        function validateform() {
+            var student_id = document.forms["studentform"]["student_id"].value;
+            var name = document.forms["studentform"]["name"].value;
+            var email = document.forms["studentform"]["email"].value;
+            var phone = document.forms["studentform"]["phone"].value;
+            var dob = document.forms["studentform"]["dob"].value;
+            var gender = document.forms["studentform"]["gender"].value;
+            var department = document.forms["studentform"]["department"].value;
+            var region = document.forms["studentform"]["region"].value;
+            var address = document.forms["studentform"]["address"].value;
+
+            if (student_id == "" || name == "" || email == "" || phone == "" || dob == "" || gender == "" || department == "" || region == "" || address == "") {
+                alert("All fields must be filled");
+                return false;
+            }
+
+            const emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailpattern.test(email)) {
+                alert("Invalid email");
+                return false;
+            }
+
+           const cleanedPhone = phone.replace(/[\s-]/g, ""); // স্পেস বা ড্যাশ থাকলে সরিয়ে দাও
+const bdphonepattern = /^(?:\+8801|01)[0-9]{9}$/;
+
+if (!bdphonepattern.test(cleanedPhone)) {
+    alert("Invalid phone number");
+    return false;
+}
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2>Student Profile Form</h2>
+    <form name="studentform" action="show_student_profile.php" method="POST" onsubmit="return validateform()">
+        Student ID: <input type="text" name="student_id" required><br><br>
+        
+        Name: <input type="text" name="name" required><br><br>
+        
+        Email: <input type="text" name="email" required><br><br>
+        
+        Phone: <input type="text" name="phone" required><br><br>
+        
+        Date of Birth: <input type="date" name="dob"><br><br>
+        
+        Gender:
+        <select name="gender">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Others">Others</option>
+        </select><br><br>
+        
+        Department: <input type="text" name="department"><br><br>
+        
+        Region:
+        <input type="radio" name="region" value="Islam"> Islam
+        <input type="radio" name="region" value="Hindu"> Hindu
+        <input type="radio" name="region" value="Others"> Others<br><br>
+        
+        Address: <textarea name="address"></textarea><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

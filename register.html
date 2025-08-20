@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <title>user registration form</title>
+        <script>
+            function validateform(){
+                var username=document.forms["regform"]["username"].value;
+                var password=document.forms["regform"]["password"].value;
+                var email=document.forms["regform"]["email"].value;
+                var name=document.forms["regform"]["full name"].value;
+                var contact=document.forms["regform"]["contact"].value;
+
+                if(username=="" || password==" " ||email=="" ||name=="" ||contact==""){
+                    alert("all feilds must be filled out");
+                    return false;
+
+                }
+                if(!email.includes("@")){
+                    alert("enter a valid email");
+                    return false;
+                }
+                if(contact.length<10){
+                    alert("enter a valid nmber");
+                    return false;
+                }
+                return true;
+            }
+        </script>
+    </head>
+    <body>
+        <h2>User Registration form:</h2>
+        <form name="regform" action="register_process.php" method="POST" onsubmit="return validateform();">
+            User name:<input type="text" name="username"><br><br>
+            Password:<input type="password" name="password"><br><br>
+            Email:<input type="text" name="email"><br><br>
+            Full Name:<input type="text" name="full_name"><br><br>
+            Contact:<input type="text" name="contact">
+            <input type="submit" value="submit">
+            
+
+        </form>
+    </body>
+</html>
